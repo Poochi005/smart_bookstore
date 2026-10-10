@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sell Book - Smart Bookstore</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<header><h1>📚 Smart Bookstore</h1></header>
+<main>
+<section>
+    <h2>Record Book Sale</h2>
+    <p><strong>{{ book.title }}</strong> by {{ book.author }}</p>
+    <p>Price: ₹{{ "%.2f"|format(book.price) }} | Available stock: {{ book.stock }}</p>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% for category, message in messages %}
+        <div class="flash {{ category }}">{{ message }}</div>
+      {% endfor %}
+    {% endwith %}
+    <form method="post">
+        <label>Quantity:</label>
+        <input type="number" name="quantity" min="1" max="{{ book.stock }}" required>
+        <button type="submit">Complete Sale</button>
+        <a class="button secondary" href="{{ url_for('home') }}">Cancel</a>
+    </form>
+</section>
+</main>
+</body>
+</html>

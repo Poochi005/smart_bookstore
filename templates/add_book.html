@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Book - Smart Bookstore</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<header>
+    <h1>📚 Smart Bookstore</h1>
+    <nav>
+        <a href="{{ url_for('home') }}">Home</a>
+        <a href="{{ url_for('add_book') }}">Add Book</a>
+        <a href="{{ url_for('sales') }}">Sales</a>
+        <a href="{{ url_for('contact') }}">Contact</a>
+    </nav>
+</header>
+<main>
+<section class="add-book">
+    <h2>Add a New Book</h2>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% for category, message in messages %}
+        <div class="flash {{ category }}">{{ message }}</div>
+      {% endfor %}
+    {% endwith %}
+    <form method="post">
+        <label>Title:</label>
+        <input type="text" name="title" required>
+        <label>Author:</label>
+        <input type="text" name="author" required>
+        <label>Category:</label>
+        <input type="text" name="category" value="General">
+        <label>Price:</label>
+        <input type="number" name="price" min="0" step="0.01" required>
+        <label>Stock:</label>
+        <input type="number" name="stock" min="0" required>
+        <button type="submit">Add Book</button>
+    </form>
+</section>
+</main>
+<footer><p>© 2026 Smart Bookstore</p></footer>
+</body>
+</html>
