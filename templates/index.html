@@ -1,30 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smart Bookstore</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body>
-<header>
-    <h1>📚 Smart Bookstore</h1>
-    <nav>
-        <a href="{{ url_for('home') }}">Home</a>
-        <a href="{{ url_for('home') }}">Books</a>
-        <a href="{{ url_for('add_book') }}">Add Book</a>
-        <a href="{{ url_for('sales') }}">Sales</a>
-        <a href="{{ url_for('contact') }}">Contact</a>
-    </nav>
-</header>
-
-<main>
-    {% with messages = get_flashed_messages(with_categories=true) %}
-      {% for category, message in messages %}
-        <div class="flash {{ category }}">{{ message }}</div>
-      {% endfor %}
-    {% endwith %}
-
+{% extends "base.html" %}
+{% block title %}Smart Bookstore{% endblock %}
+{% block content %}
     <section class="intro">
         <h2>Welcome to Smart Bookstore</h2>
         <p>Manage your books, track stock, record sales, and explore your inventory.</p>
@@ -36,7 +12,7 @@
         <div><strong>₹{{ "%.2f"|format(total_sales) }}</strong><span>Total Sales</span></div>
     </section>
 
-    <section class="book-list">
+    <section class="book-list" id="books">
         <div class="section-heading">
             <h2>Available Books</h2>
             <a class="button" href="{{ url_for('add_book') }}">+ Add Book</a>
@@ -62,6 +38,8 @@
                         <td class="actions">
                             {% if book.stock > 0 %}
                             <a class="small-button" href="{{ url_for('sell_book', book_id=book.id) }}">Sell</a>
+                            {% else %}
+                            <span class="out-of-stock">Out of stock</span>
                             {% endif %}
                             <form method="post" action="{{ url_for('delete_book', book_id=book.id) }}"
                                   onsubmit="return confirm('Delete this book?');">
@@ -77,8 +55,4 @@
             <p>No books available.</p>
         {% endif %}
     </section>
-</main>
-
-<footer><p>© 2026 Smart Bookstore | Flask + SQLite</p></footer>
-</body>
-</html>
+{% endblock %}

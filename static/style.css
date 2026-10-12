@@ -90,7 +90,15 @@ a.button, .button {
     border: none;
     cursor: pointer;
 }
-.secondary { background: #666; margin-left: 8px; }
+.button.secondary, a.button.secondary { background: #666; margin-left: 0; }
+.button.secondary:hover { background: #555; }
+.form-actions { display: flex; gap: 10px; align-items: center; margin-top: 15px; }
+.form-actions button { margin-top: 0; flex: 1; }
+.form-actions .button { text-align: center; }
+.out-of-stock { color: #888; font-size: 13px; }
+.actions form { display: block; }
+.actions form button { margin-top: 0; }
+html { scroll-behavior: smooth; }
 .section-heading { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
 .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; background: transparent; box-shadow: none; padding: 0; }
 .stats div { background: white; padding: 18px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,.1); text-align: center; }
